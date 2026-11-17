@@ -51,7 +51,7 @@
                 android:padding="@dimen/_20sdp">
 
                 <EditText
-                    android:id="@+id/etEmail"
+                    android:id="@+id/forgot_email"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_46sdp"
                     android:background="@drawable/bg_input"
@@ -62,7 +62,7 @@
                     android:textColorHint="@color/text_hint" />
 
                 <EditText
-                    android:id="@+id/etNewPassword"
+                    android:id="@+id/forgot_newpassword"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="16dp"
@@ -72,9 +72,20 @@
                     android:paddingHorizontal="16dp"
                     android:textColor="@color/text_dark"
                     android:textColorHint="@color/text_hint" />
+                <EditText
+                    android:id="@+id/forgot_confirmnewpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Confirm New password"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/text_dark"
+                    android:textColorHint="@color/text_hint" />
 
                 <Button
-                    android:id="@+id/btnReset"
+                    android:id="@+id/forgot_resetbtn"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="24dp"
@@ -87,7 +98,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvBack"
+                    android:id="@+id/forgot_loginback"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

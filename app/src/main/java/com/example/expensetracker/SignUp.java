@@ -31,7 +31,7 @@ public class SignUp extends AppCompatActivity {
 
         db = openOrCreateDatabase("ExpenseTracker",MODE_PRIVATE,null);
 
-        String UserTable = "CREATE TABLE IF NOT EXISTS user(userid INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(50),email VARCHAR(30),contact VARCHAR(10),password VARCHAR(20) )";
+        String UserTable = "CREATE TABLE IF NOT EXISTS user(userid INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(50),email VARCHAR(30),password VARCHAR(20) )";
         db .execSQL(UserTable);
 
         name = findViewById(R.id.signup_name);
@@ -77,17 +77,17 @@ public class SignUp extends AppCompatActivity {
                 confirmpassword.requestFocus();
             }
             else{
-                String CheckUser = "SELECT * FROM user WHERE email = '"+email_text+"' OR password ='"+confirmpass_text+"' ";
+                String CheckUser = "SELECT * FROM user WHERE email = '"+email_text+"' OR password ='"+pass_text+"' ";
                 Cursor cursor = db.rawQuery(CheckUser,null);
 
                 if (cursor.getCount()>0){
                     Toast.makeText(this, "user already exists", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    String insertUser = "INSERT INTO user VALUE(NULL,'"+name_text+"', '"+email_text+"','"+pass_text+"','"+confirmpass_text+"' )  ";
+                    String insertUser = "INSERT INTO user VALUES(NULL,'"+name_text+"', '"+email_text+"','"+pass_text+"' )  ";
                     db.execSQL(insertUser);
                     Toast.makeText(this, "user added successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this,Navbar.class));
+                    startActivity(new Intent(this,Home.class));
                     finish();
                 }
             }

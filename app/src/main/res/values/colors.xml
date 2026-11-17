@@ -6,4 +6,7 @@
     <color name="primary_dark">#4A7A8B</color>
     <color name="text_dark">#2B3A40</color>
     <color name="text_hint">#8A9BA1</color>
+    <color name="screen_bg">#F5F8F9</color>
+    <color name="income_green">#388E65</color>
+    <color name="expense_red">#D46B6B</color>
 </resources>

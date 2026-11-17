@@ -18,8 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-
-public class More extends AppCompatActivity {
+//change here AppCompatActivity to navbar
+public class More extends Navbar {
 
     TextView tvName, tvEmail, tvWeekStart;
     Button btnEditProfile;
@@ -36,6 +36,8 @@ public class More extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
+// for bottom navbar
+        setupBottomNav(R.id.more);
 
         // Initialize SharedPreferences
         preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);

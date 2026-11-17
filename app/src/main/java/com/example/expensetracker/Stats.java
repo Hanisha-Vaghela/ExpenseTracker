@@ -21,7 +21,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class Stats extends AppCompatActivity {
+public class Stats extends Navbar {  //AppCompatActivity first one
 
     BarChart barchart;
     PieChart piechart;
@@ -31,6 +31,7 @@ public class Stats extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+        setupBottomNav(R.id.stats);
         barchart = findViewById(R.id.barchart);
         piechart = findViewById(R.id.piechart);
 

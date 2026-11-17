@@ -1,7 +1,6 @@
 package com.example.expensetracker;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,17 +8,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Navbar extends AppCompatActivity {
 
-    BottomNavigationView bottomNav;
+    // Call this in every page, after setContentView()
+    protected void setupBottomNav(int selectedId) {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navbar);
-
-        bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setSelectedItemId(selectedId);
 
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+
+            if (id == selectedId) {
+                return true;
+            }
 
             if (id == R.id.home) {
                 startActivity(new Intent(this, Home.class));
@@ -32,7 +32,9 @@ public class Navbar extends AppCompatActivity {
             } else {
                 return false;
             }
+
             overridePendingTransition(0, 0);
+//            finish();
             return true;
         });
     }

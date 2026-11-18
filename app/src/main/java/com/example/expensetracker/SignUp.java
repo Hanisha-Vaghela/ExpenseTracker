@@ -1,6 +1,7 @@
 package com.example.expensetracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ public class SignUp extends AppCompatActivity {
     EditText name,email,password,confirmpassword;
     Button signup;
     TextView login;
-
+    SharedPreferences sp;
     SQLiteDatabase db;
 
     @Override
@@ -30,6 +31,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         db = openOrCreateDatabase("ExpenseTracker",MODE_PRIVATE,null);
+        sp = getSharedPreferences(ConstantSP.PREF,MODE_PRIVATE);
 
         String UserTable = "CREATE TABLE IF NOT EXISTS user(userid INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(50),email VARCHAR(30),password VARCHAR(20) )";
         db .execSQL(UserTable);
@@ -86,6 +88,11 @@ public class SignUp extends AppCompatActivity {
                 else {
                     String insertUser = "INSERT INTO user VALUES(NULL,'"+name_text+"', '"+email_text+"','"+pass_text+"' )  ";
                     db.execSQL(insertUser);
+                    sp.edit()
+                            .putString(ConstantSP.NAME, name_text)
+                            .putString(ConstantSP.EMAIL, email_text)
+                            .putString(ConstantSP.PASSWORD,pass_text)
+                            .apply();
                     Toast.makeText(this, "user added successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this,Home.class));
                     finish();

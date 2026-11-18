@@ -62,10 +62,10 @@ public class Login extends AppCompatActivity {
                     while (cursor.moveToNext()){
                         sp.edit()
                                 .putInt(ConstantSP.USERID,cursor.getInt(0))
-                                .putString(ConstantSP.Name,cursor.getString(1))
+                                .putString(ConstantSP.NAME,cursor.getString(1))
                                 .putString(ConstantSP.EMAIL,cursor.getString(2))
                                 .putString(ConstantSP.PASSWORD,cursor.getString(3))
-                                        .apply();
+                                .apply();
 
 
                     Toast.makeText(this, "Welcome again", Toast.LENGTH_SHORT).show();

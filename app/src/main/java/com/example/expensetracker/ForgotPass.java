@@ -65,7 +65,7 @@ public class ForgotPass extends AppCompatActivity {
             confirmnewpassword.requestFocus();
             }
             else{
-                String CheckUser = "SELECT * FROM user WHERE email = '"+email+"' ";
+                String CheckUser = "SELECT * FROM user WHERE email = '"+email_text+"' ";
                 Cursor cursor = db.rawQuery(CheckUser,null);
                 if (cursor.getCount() > 0){
                     String updatePassword = "UPDATE user SET password = '"+newpassword_text+"' WHERE email ='"+email_text+"' ";

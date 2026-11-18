@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
         sp = getSharedPreferences(ConstantSP.PREF,MODE_PRIVATE);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            if(sp.getString(ConstantSP.Name,"").isEmpty()){
+            if(sp.getString(ConstantSP.NAME,"").isEmpty()){
                 startActivity(new Intent(this, SignUp.class));
                 finish();
             }

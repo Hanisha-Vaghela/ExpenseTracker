@@ -22,8 +22,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 public class Stats extends Navbar {  //AppCompatActivity first one
-
-    BarChart barchart;
     PieChart piechart;
 
     @Override
@@ -32,38 +30,17 @@ public class Stats extends Navbar {  //AppCompatActivity first one
         setContentView(R.layout.activity_stats);
 
         setupBottomNav(R.id.stats);
-        barchart = findViewById(R.id.barchart);
         piechart = findViewById(R.id.piechart);
 
-        // array list
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-//        loop
-
+            //loop
         for(int i = 1; i <10 ; i++){
             //float ma convert karyu
             float value = (float) (i*10.0);
-//            Intialize bar chart entry
-
-            BarEntry barEntry = new BarEntry(i, value);
             PieEntry pieEntry = new PieEntry(i, value);
-
             //add value in array list upper array list ma thi levanu
-
-            barEntries.add(barEntry); // ahiya bracket ma value vadu lidhu (i,value)
-            pieEntries.add(pieEntry);
+            pieEntries.add(pieEntry);// ahiya bracket ma value vadu lidhu (i,value)
         }
-
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Employees");
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        barDataSet.setDrawValues(false);
-        barchart.setData(new BarData(barDataSet));
-        barchart.animateY(5000);
-
-        barchart.getDescription().setText("Employees Chart");
-        barchart.getDescription().setTextColor(Color.BLUE);
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries,"Student");
 

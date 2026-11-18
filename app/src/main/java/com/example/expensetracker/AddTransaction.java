@@ -39,7 +39,6 @@ public class AddTransaction extends AppCompatActivity {
 
         categoryList = new TextView[]{
                 tvother,tvbills,tvfood,tventertainment,tvinvestments,tvshopping
-
         };
 
         for (TextView box : categoryList){

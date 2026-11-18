@@ -1,7 +1,9 @@
 
 package com.example.expensetracker;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Button;
@@ -17,18 +19,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 //change here AppCompatActivity to navbar
 public class More extends Navbar {
 
-    TextView tvName, tvEmail, tvWeekStart;
-    Button btnEditProfile;
+    TextView Name, Email, tvWeekStart;
+    Button Delete,logout;
     SwitchMaterial switchDark;
     View rowWeekStart;
     RadioGroup rgTimeFormat;
     RadioButton rb12, rb24;
-
-    SharedPreferences preferences;
+    SharedPreferences sp;
+    SQLiteDatabase db;
 
     private static final String PREF_NAME = "ExpenseTrackerSettings";
 
@@ -36,25 +39,46 @@ public class More extends Navbar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
-// for bottom navbar
+        // for bottom navbar
         setupBottomNav(R.id.more);
 
-        // Initialize SharedPreferences
-        preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        sp = getSharedPreferences(ConstantSP.PREF, MODE_PRIVATE);
+        db = openOrCreateDatabase(ConstantSP.PREF,MODE_PRIVATE,null);
+
+        String UserTable = "CREATE TABLE IF NOT EXISTS user (userid integer PRIMARY KEY AUTOINCREMENT,name VARCHAR(50),email VARCHAR(30),password VARCHAR(20))";
+        db.execSQL(UserTable);
+
+
 
         // Initialize views
-        tvName = findViewById(R.id.tvName);
-        tvEmail = findViewById(R.id.tvEmail);
+        Delete = findViewById(R.id.more_delete);
+        logout = findViewById(R.id.more_logoutbtn);
+        Name = findViewById(R.id.more_name);
+        Email = findViewById(R.id.tvEmail);
         tvWeekStart = findViewById(R.id.tvWeekStart);
-
-        btnEditProfile = findViewById(R.id.btnEditProfile);
         switchDark = findViewById(R.id.switchDark);
-
         rowWeekStart = findViewById(R.id.rowWeekStart);
-
         rgTimeFormat = findViewById(R.id.rgTimeFormat);
         rb12 = findViewById(R.id.rb12);
         rb24 = findViewById(R.id.rb24);
+
+        Name.setText("Welcome, " + sp.getString(ConstantSP.NAME, ""));
+        Email.setText(sp.getString(ConstantSP.EMAIL, ""));
+
+        logout.setOnClickListener(view -> {
+            sp.edit().clear().apply();
+            startActivity(new Intent(this, Login.class));
+            finish();
+        });
+        Delete.setOnClickListener(view -> {
+            db.execSQL("DELETE FROM user WHERE userid = "+sp.getInt(ConstantSP.USERID,0));
+            sp.edit().clear().apply();
+            Snackbar.make(view,"Sure to delete your account",Snackbar.LENGTH_SHORT).setAction("yes", v -> {
+                startActivity(new Intent(this,Login.class));
+                finish();
+            }).show();
+        });
+
 
         // Load saved settings
         loadProfile();
@@ -63,12 +87,12 @@ public class More extends Navbar {
         loadDarkMode();
 
         // Edit Profile
-        btnEditProfile.setOnClickListener(v -> editProfile());
+//        btnEditProfile.setOnClickListener(v -> editProfile());
 
         // Dark Mode
         switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-            preferences.edit()
+            sp.edit()
                     .putBoolean("darkMode", isChecked)
                     .apply();
 
@@ -95,7 +119,7 @@ public class More extends Navbar {
                 format = "24-hour";
             }
 
-            preferences.edit()
+            sp.edit()
                     .putString("timeFormat", format)
                     .apply();
 
@@ -108,72 +132,22 @@ public class More extends Navbar {
     // Load Profile
     private void loadProfile() {
 
-        String name = preferences.getString("userName", "Your Name");
-        String email = preferences.getString("userEmail", "your@email.com");
 
-        tvName.setText(name);
-        tvEmail.setText(email);
+//        String name = sp.getString("userName", "Your Name");
+//        Name.setText("Welcome" +sp.getString(ConstantSP.NAME,""));
+//        tvEmail.setText("Email"+sp.getString(ConstantSP.EMAIL,""));
+//        String email = sp.getString("userEmail", "your@email.com");
+
+//        tvName.setText(name);
+//        tvEmail.setText(email);
     }
 
-    // Edit Profile
-    private void editProfile() {
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(50, 20, 50, 10);
-
-        EditText etName = new EditText(this);
-        etName.setHint("Enter your name");
-        etName.setSingleLine(true);
-        etName.setText(tvName.getText().toString());
-
-        EditText etEmail = new EditText(this);
-        etEmail.setHint("Enter your email");
-        etEmail.setSingleLine(true);
-        etEmail.setInputType(InputType.TYPE_CLASS_TEXT |
-                InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        etEmail.setText(tvEmail.getText().toString());
-
-        layout.addView(etName);
-        layout.addView(etEmail);
-
-        new AlertDialog.Builder(this)
-                .setTitle("Edit Profile")
-                .setView(layout)
-                .setPositiveButton("Save", (dialog, which) -> {
-
-                    String name = etName.getText().toString().trim();
-                    String email = etEmail.getText().toString().trim();
-
-                    if (name.isEmpty() || email.isEmpty()
-                            || !android.util.Patterns.EMAIL_ADDRESS
-                            .matcher(email).matches()) {
-
-                        Toast.makeText(this,
-                                "Enter a valid name and email",
-                                Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    preferences.edit()
-                            .putString("userName", name)
-                            .putString("userEmail", email)
-                            .apply();
-
-                    loadProfile();
-
-                    Toast.makeText(this,
-                            "Profile updated successfully",
-                            Toast.LENGTH_SHORT).show();
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
-    }
 
     // Load Week Start
     private void loadWeekStart() {
 
-        String week = preferences.getString("weekStart", "Monday");
+        String week = sp.getString("weekStart", "Monday");
         tvWeekStart.setText(week);
     }
 
@@ -182,7 +156,7 @@ public class More extends Navbar {
 
         String[] options = {"Monday", "Sunday"};
 
-        String current = preferences.getString("weekStart", "Monday");
+        String current = sp.getString("weekStart", "Monday");
 
         int selected = current.equals("Sunday") ? 1 : 0;
 
@@ -193,7 +167,7 @@ public class More extends Navbar {
 
                             String week = options[which];
 
-                            preferences.edit()
+                            sp.edit()
                                     .putString("weekStart", week)
                                     .apply();
 
@@ -212,7 +186,7 @@ public class More extends Navbar {
     // Load Time Format
     private void loadTimeFormat() {
 
-        String format = preferences.getString("timeFormat", "12-hour");
+        String format = sp.getString("timeFormat", "12-hour");
 
         if (format.equals("24-hour")) {
             rb24.setChecked(true);
@@ -224,7 +198,7 @@ public class More extends Navbar {
     // Load Dark Mode
     private void loadDarkMode() {
 
-        boolean isDark = preferences.getBoolean("darkMode", false);
+        boolean isDark = sp.getBoolean("darkMode", false);
 
         switchDark.setChecked(isDark);
     }

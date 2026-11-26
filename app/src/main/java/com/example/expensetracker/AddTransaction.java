@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -49,6 +50,16 @@ public class AddTransaction extends AppCompatActivity {
         rgCategory = findViewById(R.id.addtransaction_category);
         btnsave = findViewById(R.id.addtransaction_btnSave);
 
+        String[] types = {"Expense","Income"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                types
+        );
+
+        spType.setAdapter(adapter);
+
         btnsave.setOnClickListener(v -> saveTransaction());
         }
 
@@ -67,6 +78,7 @@ public class AddTransaction extends AppCompatActivity {
             return;
         } if (amountnum <= 0){
             amount.setError("Enter Positive amount");
+            return;
         }
 
         int checkedId = rgCategory.getCheckedRadioButtonId();

@@ -62,58 +62,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="6dp"
-                android:entries="@array/transaction_types" />
+                android:spinnerMode="dropdown" />
 
-            <!-- Category radio buttons -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <!-- Category dropdown -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp">
+                android:text="Category"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+            <Spinner
+                android:id="@+id/addtransaction_category"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:spinnerMode="dropdown" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Category"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+            <!-- Payment mode dropdown -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Mode of payment"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-                    <RadioGroup
-                        android:id="@+id/addtransaction_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical">
-
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Food and Drinks" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Groceries" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Salary" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Transport" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fuel" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Shopping" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Bills and Utilities" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Rent" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Entertainment" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Health" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Education" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Travel" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Investments" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Insurance" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Subscriptions" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Personal Care" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Gifts and Donations" />
-                        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Others" />
-
-                    </RadioGroup>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            <Spinner
+                android:id="@+id/addtransaction_payment"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
     </ScrollView>

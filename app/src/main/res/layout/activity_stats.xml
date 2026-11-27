@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_bg"
+
     android:orientation="vertical"
     tools:context=".Stats">
-
-    <ScrollView
+<!--    android:background="@color/screen_bg"-->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -124,32 +124,32 @@
                 </LinearLayout>
             </LinearLayout>
 
-<!--             Net Balance Banner -->
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginTop="16dp"-->
-<!--                            android:background="@android:color/white"-->
-<!--                            android:gravity="center"-->
-<!--                            android:orientation="horizontal"-->
-<!--                            android:padding="14dp">-->
+            <!--             Net Balance Banner -->
+            <!--                        <LinearLayout-->
+            <!--                            android:layout_width="match_parent"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:layout_marginTop="16dp"-->
+            <!--                            android:background="@android:color/white"-->
+            <!--                            android:gravity="center"-->
+            <!--                            android:orientation="horizontal"-->
+            <!--                            android:padding="14dp">-->
 
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="Net (Income - Expense): "-->
-<!--                                android:textColor="@color/text_dark"-->
-<!--                                android:textSize="14sp" />-->
+            <!--                            <TextView-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content"-->
+            <!--                                android:text="Net (Income - Expense): "-->
+            <!--                                android:textColor="@color/text_dark"-->
+            <!--                                android:textSize="14sp" />-->
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/tvNetBalance"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0.00"-->
-<!--                                android:textColor="@color/text_dark"-->
-<!--                                android:textSize="16sp"-->
-<!--                                android:textStyle="bold" />-->
-<!--                        </LinearLayout>-->
+            <!--                            <TextView-->
+            <!--                                android:id="@+id/tvNetBalance"-->
+            <!--                                android:layout_width="wrap_content"-->
+            <!--                                android:layout_height="wrap_content"-->
+            <!--                                android:text="0.00"-->
+            <!--                                android:textColor="@color/text_dark"-->
+            <!--                                android:textSize="16sp"-->
+            <!--                                android:textStyle="bold" />-->
+            <!--                        </LinearLayout>-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -165,13 +165,14 @@
             <!-- Category List / Grid -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategoryStats"
-                android:padding="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="16dp"
                 android:nestedScrollingEnabled="false" />
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Bottom Navigation Bar -->
     <include layout="@layout/activity_navbar" />
